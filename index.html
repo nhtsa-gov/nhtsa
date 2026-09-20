@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Traffic Services | Citation Lookup</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #082b59;
+            --blue: #0b63ce;
+            --light-blue: #eef6ff;
+            --border: #d9e4f0;
+            --text: #172b4d;
+            --muted: #65758b;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f8fc;
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* HEADER */
+
+        header {
+            height: 76px;
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 7%;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-mark {
+            width: 42px;
+            height: 42px;
+            border-radius: 8px;
+            background: var(--navy);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 17px;
+        }
+
+        .brand-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        .header-link {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* HERO */
+
+        .hero {
+            background:
+                linear-gradient(135deg, #062b59 0%, #0b63ce 100%);
+            color: white;
+            padding: 80px 20px 150px;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 760px;
+            margin: auto;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            padding: 7px 13px;
+            border: 1px solid rgba(255,255,255,.3);
+            border-radius: 30px;
+            font-size: 12px;
+            letter-spacing: .5px;
+            margin-bottom: 20px;
+            background: rgba(255,255,255,.08);
+        }
+
+        .hero h1 {
+            font-size: clamp(36px, 5vw, 58px);
+            line-height: 1.08;
+            margin-bottom: 20px;
+            letter-spacing: -1.5px;
+        }
+
+        .hero p {
+            max-width: 600px;
+            margin: auto;
+            line-height: 1.7;
+            color: #e5efff;
+            font-size: 16px;
+        }
+
+        /* SEARCH CARD */
+
+        .lookup-wrapper {
+            max-width: 850px;
+            margin: -85px auto 0;
+            padding: 0 20px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .lookup-card {
+            background: white;
+            border-radius: 14px;
+            padding: 34px;
+            box-shadow: 0 20px 55px rgba(11, 49, 91, .15);
+            border: 1px solid #e5edf6;
+        }
+
+        .lookup-heading {
+            margin-bottom: 25px;
+        }
+
+        .lookup-heading h2 {
+            font-size: 23px;
+            margin-bottom: 7px;
+            color: var(--navy);
+        }
+
+        .lookup-heading p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .field label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+
+        .field input {
+            width: 100%;
+            height: 52px;
+            padding: 0 15px;
+            border: 1px solid #cfdbe8;
+            border-radius: 7px;
+            outline: none;
+            font-size: 15px;
+            color: var(--text);
+            transition: .2s ease;
+        }
+
+        .field input:focus {
+            border-color: var(--blue);
+            box-shadow: 0 0 0 3px rgba(11,99,206,.10);
+        }
+
+        .field input::placeholder {
+            color: #9aa8b8;
+        }
+
+        .search-button {
+            width: 100%;
+            height: 53px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 7px;
+            background: var(--blue);
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: .2s ease;
+        }
+
+        .search-button:hover {
+            background: #084fa7;
+            transform: translateY(-1px);
+        }
+
+        .search-note {
+            text-align: center;
+            margin-top: 16px;
+            color: #7a8899;
+            font-size: 12px;
+        }
+
+        .error {
+            display: none;
+            margin-top: 14px;
+            padding: 12px;
+            border-radius: 6px;
+            background: #fff1f1;
+            color: #a33131;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        /* INFO SECTION */
+
+        .information {
+            max-width: 1050px;
+            margin: 70px auto;
+            padding: 0 25px;
+        }
+
+        .information h2 {
+            text-align: center;
+            font-size: 28px;
+            color: var(--navy);
+            margin-bottom: 12px;
+        }
+
+        .information-intro {
+            text-align: center;
+            max-width: 600px;
+            margin: auto;
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 35px;
+        }
+
+        .info-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 26px;
+        }
+
+        .info-number {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--light-blue);
+            color: var(--blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-bottom: 17px;
+        }
+
+        .info-card h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: var(--navy);
+        }
+
+        .info-card p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: var(--navy);
+            color: #b9c9dc;
+            text-align: center;
+            padding: 28px 20px;
+            font-size: 12px;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 700px) {
+
+            header {
+                padding: 0 20px;
+            }
+
+            .header-link {
+                display: none;
+            }
+
+            .hero {
+                padding: 60px 20px 130px;
+            }
+
+            .hero h1 {
+                font-size: 38px;
+            }
+
+            .lookup-card {
+                padding: 25px 20px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .information {
+                margin-top: 55px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="brand">
+        <div class="brand-mark">TS</div>
+        <div class="brand-name">Traffic Services</div>
+    </div>
+
+    <div class="header-link">
+        Citation & Payment Services
+    </div>
+</header>
+
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <span class="eyebrow">CITATION LOOKUP SERVICE</span>
+
+        <h1>Check Your Traffic Citation</h1>
+
+        <p>
+            Enter your information below to securely access your citation
+            details and review the applicable payment information.
+        </p>
+
+    </div>
+
+</section>
+
+
+<div class="lookup-wrapper">
+
+    <div class="lookup-card">
+
+        <div class="lookup-heading">
+            <h2>Find Your Citation</h2>
+
+            <p>
+                Enter the name and vehicle plate number associated with the citation.
+            </p>
+        </div>
+
+
+        <form id="lookupForm">
+
+            <div class="form-grid">
+
+                <div class="field">
+                    <label for="fullName">Full Name</label>
+
+                    <input
+                        type="text"
+                        id="fullName"
+                        placeholder="e.g. Daniel Carter"
+                        autocomplete="name"
+                        required
+                    >
+                </div>
+
+
+                <div class="field">
+                    <label for="plateNumber">Plate Number</label>
+
+                    <input
+                        type="text"
+                        id="plateNumber"
+                        placeholder="e.g. ABX-4827"
+                        autocomplete="off"
+                        required
+                    >
+                </div>
+
+            </div>
+
+
+            <button type="submit" class="search-button">
+                Search Citation
+            </button>
+
+            <div id="errorMessage" class="error">
+                Please enter both your full name and plate number.
+            </div>
+
+            <div class="search-note">
+                Please ensure the information entered matches the citation details.
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<section class="information">
+
+    <h2>How It Works</h2>
+
+    <p class="information-intro">
+        Access your citation information in a few simple steps.
+    </p>
+
+
+    <div class="info-grid">
+
+        <div class="info-card">
+
+            <div class="info-number">1</div>
+
+            <h3>Enter Your Details</h3>
+
+            <p>
+                Provide the full name and vehicle plate number associated
+                with the citation.
+            </p>
+
+        </div>
+
+
+        <div class="info-card">
+
+            <div class="info-number">2</div>
+
+            <h3>Review Citation</h3>
+
+            <p>
+                View the citation information, violation details,
+                applicable penalty and payment terms.
+            </p>
+
+        </div>
+
+
+        <div class="info-card">
+
+            <div class="info-number">3</div>
+
+            <h3>Make Payment</h3>
+
+            <p>
+                Continue through the payment process to resolve the
+                outstanding citation.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<footer>
+    © 2026 Traffic Services. All rights reserved.
+</footer>
+
+
+<script>
+
+    const form = document.getElementById("lookupForm");
+    const nameInput = document.getElementById("fullName");
+    const plateInput = document.getElementById("plateNumber");
+    const errorMessage = document.getElementById("errorMessage");
+
+    form.addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        const name = nameInput.value.trim();
+        const plate = plateInput.value.trim();
+
+        if (!name || !plate) {
+
+            errorMessage.style.display = "block";
+            return;
+
+        }
+
+        errorMessage.style.display = "none";
+
+        /*
+            Store the submitted information so the next page
+            can display it dynamically.
+        */
+
+        sessionStorage.setItem("driverName", name);
+        sessionStorage.setItem("plateNumber", plate);
+
+        /*
+            Page 2 will be connected here.
+        */
+
+        window.location.href = "violation.html";
+
+    });
+
+</script>
+
+</body>
+</html>

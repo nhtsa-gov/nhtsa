@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment | Traffic Services</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      background: #f4f8fc;
+      color: #172033;
+      min-height: 100vh;
+    }
+
+    header {
+      background: #0757b8;
+      color: white;
+      padding: 18px 24px;
+      box-shadow: 0 2px 10px rgba(0,0,0,.08);
+    }
+
+    .header-inner {
+      max-width: 1050px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -.3px;
+    }
+
+    .secure {
+      font-size: 13px;
+      opacity: .9;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    main {
+      max-width: 1050px;
+      margin: 42px auto;
+      padding: 0 20px;
+    }
+
+    .page-title {
+      margin-bottom: 26px;
+    }
+
+    .page-title h1 {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+
+    .page-title p {
+      color: #667085;
+      line-height: 1.6;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 28px;
+      border: 1px solid #e4eaf1;
+      box-shadow: 0 8px 30px rgba(15, 45, 80, .06);
+    }
+
+    .card h2 {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    .citation-box {
+      background: #f7faff;
+      border: 1px solid #dbe8f7;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 22px;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 11px 0;
+      border-bottom: 1px solid #e8edf3;
+    }
+
+    .row:last-child {
+      border-bottom: none;
+    }
+
+    .label {
+      color: #667085;
+      font-size: 14px;
+    }
+
+    .value {
+      font-weight: 700;
+      text-align: right;
+      color: #172033;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px 15px;
+      border: 1px solid #ccd6e2;
+      border-radius: 9px;
+      font-size: 15px;
+      outline: none;
+      transition: .2s;
+    }
+
+    input:focus {
+      border-color: #0757b8;
+      box-shadow: 0 0 0 3px rgba(7,87,184,.1);
+    }
+
+    .field {
+      margin-bottom: 18px;
+    }
+
+    .help {
+      color: #667085;
+      font-size: 12px;
+      margin-top: 7px;
+      line-height: 1.5;
+    }
+
+    .amount-card {
+      background: #0757b8;
+      color: white;
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .amount-card .small {
+      font-size: 13px;
+      opacity: .85;
+      margin-bottom: 8px;
+    }
+
+    .amount {
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: -.8px;
+    }
+
+    .discount-note {
+      margin-top: 8px;
+      font-size: 13px;
+      opacity: .9;
+    }
+
+    .pay-button {
+      width: 100%;
+      border: none;
+      background: #0757b8;
+      color: white;
+      padding: 16px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .pay-button:hover {
+      background: #064b9d;
+      transform: translateY(-1px);
+    }
+
+    .pay-button:disabled {
+      opacity: .65;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .back {
+      display: inline-block;
+      margin-top: 15px;
+      color: #0757b8;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .security {
+      margin-top: 18px;
+      text-align: center;
+      color: #667085;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .error {
+      display: none;
+      background: #fff1f1;
+      color: #a42323;
+      border: 1px solid #f2c4c4;
+      padding: 13px;
+      border-radius: 9px;
+      margin-bottom: 18px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    footer {
+      text-align: center;
+      padding: 35px 20px;
+      color: #7b8797;
+      font-size: 12px;
+    }
+
+    @media (max-width: 780px) {
+      main {
+        margin: 28px auto;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .page-title h1 {
+        font-size: 27px;
+      }
+
+      .card {
+        padding: 21px;
+      }
+
+      .header-inner {
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .secure {
+        font-size: 11px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="brand">Traffic Services</div>
+    <div class="secure">🔒 Secure Payment</div>
+  </div>
+</header>
+
+<main>
+
+  <div class="page-title">
+    <h1>Complete Payment</h1>
+    <p>Review your citation information and continue to the secure payment provider.</p>
+  </div>
+
+  <div id="errorBox" class="error"></div>
+
+  <div class="grid">
+
+    <section class="card">
+      <h2>Citation Details</h2>
+
+      <div class="citation-box">
+
+        <div class="row">
+          <span class="label">Citation Number</span>
+          <span class="value" id="citationNumber">—</span>
+        </div>
+
+        <div class="row">
+          <span class="label">Name</span>
+          <span class="value" id="driverName">—</span>
+        </div>
+
+        <div class="row">
+          <span class="label">Plate Number</span>
+          <span class="value" id="plateNumber">—</span>
+        </div>
+
+        <div class="row">
+          <span class="label">Violation</span>
+          <span class="value" id="violation">—</span>
+        </div>
+
+        <div class="row">
+          <span class="label">Violation Code</span>
+          <span class="value" id="violationCode">—</span>
+        </div>
+
+      </div>
+
+      <div class="field">
+        <label for="email">Email Address</label>
+        <input
+          type="email"
+          id="email"
+          placeholder="you@example.com"
+          autocomplete="email"
+          required
+        >
+        <div class="help">
+          Your payment receipt and transaction information will be associated with this email.
+        </div>
+      </div>
+
+      <button class="pay-button" id="payButton">
+        Continue to Secure Payment
+      </button>
+
+      <a href="violation.html" class="back">← Back to citation</a>
+
+      <div class="security">
+        Payment details are entered on the secure payment provider's checkout page.
+        Do not enter card details directly into this website.
+      </div>
+
+    </section>
+
+    <aside>
+
+      <div class="amount-card">
+        <div class="small">Amount Due</div>
+        <div class="amount" id="amount">$0.00</div>
+        <div class="discount-note" id="discountNote">
+          Amount shown is based on the current citation status.
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Before You Continue</h2>
+
+        <p style="color:#667085;line-height:1.7;font-size:14px;">
+          Confirm that the citation number, vehicle information, and amount
+          shown above are correct before continuing.
+        </p>
+
+        <br>
+
+        <p style="color:#667085;line-height:1.7;font-size:14px;">
+          After selecting the payment button, you will be redirected to the
+          secure payment provider to complete the transaction.
+        </p>
+      </div>
+
+    </aside>
+
+  </div>
+
+</main>
+
+<footer>
+  Traffic Services · Secure Online Payment
+</footer>
+
+<script>
+  const citationNumber =
+    sessionStorage.getItem("citationNumber");
+
+  const violation =
+    sessionStorage.getItem("citationViolation");
+
+  const violationCode =
+    sessionStorage.getItem("citationCode");
+
+  const amount =
+    sessionStorage.getItem("citationAmount");
+
+  const originalAmount =
+    sessionStorage.getItem("citationOriginalAmount");
+
+  const driverName =
+    sessionStorage.getItem("citationName");
+
+  const plateNumber =
+    sessionStorage.getItem("citationPlate");
+
+  const errorBox = document.getElementById("errorBox");
+
+  function showError(message) {
+    errorBox.textContent = message;
+    errorBox.style.display = "block";
+  }
+
+  if (
+    !citationNumber ||
+    !violation ||
+    !amount ||
+    !driverName ||
+    !plateNumber
+  ) {
+    showError(
+      "Your citation information could not be loaded. Please return to the citation page and try again."
+    );
+
+    document.getElementById("payButton").disabled = true;
+  }
+
+  document.getElementById("citationNumber").textContent =
+    citationNumber || "—";
+
+  document.getElementById("driverName").textContent =
+    driverName || "—";
+
+  document.getElementById("plateNumber").textContent =
+    plateNumber || "—";
+
+  document.getElementById("violation").textContent =
+    violation || "—";
+
+  document.getElementById("violationCode").textContent =
+    violationCode || "—";
+
+  const numericAmount = Number(amount);
+
+  if (!Number.isNaN(numericAmount)) {
+    document.getElementById("amount").textContent =
+      "$" + numericAmount.toFixed(2);
+  }
+
+  if (
+    originalAmount &&
+    Number(originalAmount) > numericAmount
+  ) {
+    document.getElementById("discountNote").textContent =
+      "Early-resolution amount currently applied.";
+  }
+
+  document
+    .getElementById("payButton")
+    .addEventListener("click", async function () {
+
+      const email =
+        document.getElementById("email").value.trim();
+
+      if (!email) {
+        showError("Please enter your email address.");
+        return;
+      }
+
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showError("Please enter a valid email address.");
+        return;
+      }
+
+      errorBox.style.display = "none";
+
+      const button = document.getElementById("payButton");
+
+      button.disabled = true;
+      button.textContent = "Preparing Secure Payment...";
+
+      try {
+
+        /*
+          The browser sends the citation identifier and email
+          to your Cloudflare Function.
+
+          The server must determine/validate the actual amount.
+          Do NOT trust a browser-supplied amount for production.
+        */
+
+        const response = await fetch("/functions/create-payment", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            citationNumber: citationNumber,
+            email: email,
+            name: driverName,
+            plateNumber: plateNumber
+          })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+          throw new Error(
+            data.message || "Unable to initialize payment."
+          );
+        }
+
+        if (!data.paymentLink) {
+          throw new Error(
+            "The payment provider did not return a checkout link."
+          );
+        }
+
+        window.location.href = data.paymentLink;
+
+      } catch (error) {
+
+        console.error(error);
+
+        showError(
+          error.message ||
+          "Something went wrong while preparing your payment."
+        );
+
+        button.disabled = false;
+        button.textContent = "Continue to Secure Payment";
+      }
+
+    });
+</script>
+
+</body>
+</html>

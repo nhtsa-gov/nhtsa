@@ -1,0 +1,1594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Citation Details | Traffic Services</title>
+
+    <style>
+        :root {
+            --blue: #0b5ed7;
+            --dark-blue: #073b8f;
+            --navy: #0b1f3a;
+            --light-blue: #eef5ff;
+            --border: #dce5f1;
+            --text: #172033;
+            --muted: #667085;
+            --green: #14804a;
+            --green-bg: #eaf8f0;
+            --red: #c62828;
+            --red-bg: #fff1f1;
+            --white: #ffffff;
+            --shadow: 0 12px 35px rgba(13, 55, 105, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+                Roboto, Arial, sans-serif;
+            background: #f5f8fc;
+            color: var(--text);
+            line-height: 1.55;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        header {
+            background: #ffffff;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            max-width: 1180px;
+            margin: auto;
+            height: 72px;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            font-weight: 800;
+            font-size: 20px;
+            color: var(--navy);
+        }
+
+        .brand-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 9px;
+            display: grid;
+            place-items: center;
+            color: white;
+            background: linear-gradient(135deg, var(--blue), var(--dark-blue));
+            font-size: 16px;
+            font-weight: 800;
+        }
+
+        .secure-label {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: #5c6677;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .secure-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--green);
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            background:
+                radial-gradient(circle at 80% 20%, rgba(255,255,255,.12), transparent 30%),
+                linear-gradient(120deg, #073b8f, #0b5ed7);
+            color: white;
+            padding: 48px 24px 55px;
+        }
+
+        .hero-inner {
+            max-width: 1180px;
+            margin: auto;
+        }
+
+        .breadcrumb {
+            font-size: 13px;
+            color: rgba(255,255,255,.75);
+            margin-bottom: 18px;
+        }
+
+        .hero h1 {
+            font-size: clamp(30px, 5vw, 46px);
+            line-height: 1.1;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            max-width: 690px;
+            color: rgba(255,255,255,.88);
+            font-size: 16px;
+        }
+
+        /* =========================
+           STATUS
+        ========================= */
+
+        .status-wrap {
+            max-width: 1180px;
+            margin: -26px auto 0;
+            padding: 0 24px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .status-bar {
+            background: white;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            border-radius: 14px;
+            padding: 18px 22px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .status-left {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+        }
+
+        .status-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: var(--red-bg);
+            color: var(--red);
+            font-weight: 900;
+        }
+
+        .status-title {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--navy);
+        }
+
+        .status-subtitle {
+            color: var(--muted);
+            font-size: 13px;
+            margin-top: 2px;
+        }
+
+        .status-badge {
+            background: var(--red-bg);
+            color: var(--red);
+            border: 1px solid #ffd4d4;
+            padding: 7px 12px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .4px;
+        }
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        main {
+            max-width: 1180px;
+            margin: 28px auto 70px;
+            padding: 0 24px;
+        }
+
+        /* =========================
+           CONSEQUENCES
+        ========================= */
+
+        .section-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: 0 7px 24px rgba(13, 55, 105, .05);
+            margin-bottom: 22px;
+            overflow: hidden;
+        }
+
+        .section-header {
+            padding: 22px 25px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-header h2 {
+            font-size: 18px;
+            color: var(--navy);
+            margin-bottom: 4px;
+        }
+
+        .section-header p {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .consequences-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .consequence {
+            padding: 25px;
+            border-right: 1px solid var(--border);
+        }
+
+        .consequence:last-child {
+            border-right: 0;
+        }
+
+        .consequence-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--light-blue);
+            color: var(--blue);
+            display: grid;
+            place-items: center;
+            font-weight: 900;
+            margin-bottom: 13px;
+        }
+
+        .consequence h3 {
+            font-size: 14px;
+            margin-bottom: 7px;
+            color: var(--navy);
+        }
+
+        .consequence p {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        /* =========================
+           CONTENT GRID
+        ========================= */
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.55fr) minmax(320px, .75fr);
+            gap: 22px;
+            align-items: start;
+        }
+
+        /* =========================
+           INFORMATION CARDS
+        ========================= */
+
+        .info-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 7px 24px rgba(13, 55, 105, .05);
+            margin-bottom: 22px;
+        }
+
+        .info-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .info-header h2 {
+            font-size: 17px;
+            color: var(--navy);
+        }
+
+        .info-body {
+            padding: 24px;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 21px 30px;
+        }
+
+        .detail-label {
+            color: #7a8494;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .7px;
+            margin-bottom: 4px;
+        }
+
+        .detail-value {
+            color: var(--text);
+            font-size: 15px;
+            font-weight: 650;
+        }
+
+        .citation-number {
+            color: var(--blue);
+            font-family: "SFMono-Regular", Consolas, monospace;
+            letter-spacing: .4px;
+        }
+
+        /* =========================
+           VIOLATION RECORD
+        ========================= */
+
+        .violation-banner {
+            background: linear-gradient(135deg, #f5f9ff, #edf5ff);
+            border: 1px solid #d9e8ff;
+            border-radius: 12px;
+            padding: 19px;
+            margin-bottom: 23px;
+        }
+
+        .violation-banner-label {
+            color: var(--blue);
+            text-transform: uppercase;
+            letter-spacing: .7px;
+            font-weight: 800;
+            font-size: 11px;
+            margin-bottom: 4px;
+        }
+
+        .violation-banner h3 {
+            color: var(--navy);
+            font-size: 21px;
+            margin-bottom: 5px;
+        }
+
+        .violation-banner p {
+            color: #566274;
+            font-size: 14px;
+        }
+
+        .code-pill {
+            display: inline-flex;
+            margin-top: 12px;
+            background: white;
+            border: 1px solid #cdddf5;
+            color: #315a94;
+            border-radius: 6px;
+            padding: 5px 9px;
+            font-size: 11px;
+            font-family: Consolas, monospace;
+            font-weight: 800;
+        }
+
+        .notice {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--blue);
+            padding: 18px 19px;
+            border-radius: 8px;
+            color: #5c6676;
+            font-size: 13px;
+        }
+
+        .notice strong {
+            color: var(--navy);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* =========================
+           PAYMENT PANEL
+        ========================= */
+
+        .payment-panel {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            position: sticky;
+            top: 95px;
+        }
+
+        .payment-top {
+            padding: 23px;
+            background: linear-gradient(145deg, #073b8f, #0b5ed7);
+            color: white;
+        }
+
+        .payment-top small {
+            color: rgba(255,255,255,.72);
+            font-size: 12px;
+        }
+
+        .payment-top h2 {
+            font-size: 19px;
+            margin-top: 4px;
+        }
+
+        .countdown {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 7px;
+            margin-top: 18px;
+        }
+
+        .time-box {
+            background: rgba(255,255,255,.11);
+            border: 1px solid rgba(255,255,255,.16);
+            border-radius: 8px;
+            padding: 10px 4px;
+            text-align: center;
+        }
+
+        .time-number {
+            display: block;
+            font-size: 22px;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .time-label {
+            display: block;
+            font-size: 9px;
+            color: rgba(255,255,255,.7);
+            text-transform: uppercase;
+            margin-top: 5px;
+            letter-spacing: .5px;
+        }
+
+        .payment-body {
+            padding: 23px;
+        }
+
+        .discount-message {
+            background: var(--green-bg);
+            color: var(--green);
+            border: 1px solid #c9ead8;
+            padding: 12px 13px;
+            border-radius: 9px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 19px;
+        }
+
+        .amount-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .amount-row strong {
+            color: var(--text);
+        }
+
+        .amount-row.total {
+            border-top: 1px solid var(--border);
+            margin-top: 9px;
+            padding-top: 17px;
+            color: var(--navy);
+            font-weight: 800;
+        }
+
+        .amount-row.total strong {
+            color: var(--blue);
+            font-size: 28px;
+        }
+
+        .pay-button {
+            width: 100%;
+            border: none;
+            background: var(--blue);
+            color: white;
+            padding: 15px;
+            border-radius: 9px;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            margin-top: 18px;
+            transition: .2s ease;
+        }
+
+        .pay-button:hover {
+            background: var(--dark-blue);
+            transform: translateY(-1px);
+        }
+
+        .payment-footnote {
+            text-align: center;
+            color: #7b8492;
+            font-size: 11px;
+            margin-top: 12px;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            border-top: 1px solid var(--border);
+            background: white;
+            padding: 25px 24px;
+        }
+
+        .footer-inner {
+            max-width: 1180px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            color: #7b8492;
+            font-size: 12px;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 850px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .payment-panel {
+                position: static;
+            }
+
+            .consequences-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .consequence {
+                border-right: 0;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .consequence:last-child {
+                border-bottom: 0;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .header-inner {
+                padding: 0 17px;
+            }
+
+            .secure-label {
+                display: none;
+            }
+
+            .hero {
+                padding: 35px 17px 48px;
+            }
+
+            .status-wrap,
+            main {
+                padding-left: 17px;
+                padding-right: 17px;
+            }
+
+            .status-bar {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+                gap: 17px;
+            }
+
+            .info-body,
+            .info-header,
+            .section-header {
+                padding: 19px;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="header-inner">
+
+        <div class="brand">
+            <div class="brand-icon">TS</div>
+            <span>Traffic Services</span>
+        </div>
+
+        <div class="secure-label">
+            <span class="secure-dot"></span>
+            Citation Services
+        </div>
+
+    </div>
+</header>
+
+
+<section class="hero">
+    <div class="hero-inner">
+
+        <div class="breadcrumb">
+            Citation Search &nbsp; / &nbsp; Citation Details
+        </div>
+
+        <h1>Citation Details</h1>
+
+        <p>
+            Review the recorded citation information, violation details,
+            applicable amount due, and available resolution options.
+        </p>
+
+    </div>
+</section>
+
+
+<div class="status-wrap">
+
+    <div class="status-bar">
+
+        <div class="status-left">
+
+            <div class="status-icon">!</div>
+
+            <div>
+                <div class="status-title">
+                    Outstanding Citation
+                </div>
+
+                <div class="status-subtitle">
+                    A citation record requires your attention.
+                </div>
+            </div>
+
+        </div>
+
+        <div class="status-badge" id="statusBadge">
+            Unresolved
+        </div>
+
+    </div>
+
+</div>
+
+
+<main>
+
+    <!-- =========================
+         CONSEQUENCES
+    ========================== -->
+
+    <section class="section-card">
+
+        <div class="section-header">
+
+            <h2>Potential Consequences</h2>
+
+            <p>
+                Unresolved citations may be subject to additional administrative
+                or legal procedures where authorized by the applicable authority.
+            </p>
+
+        </div>
+
+        <div class="consequences-grid">
+
+            <div class="consequence">
+
+                <div class="consequence-icon">01</div>
+
+                <h3>Driving Privileges</h3>
+
+                <p>
+                    Continued non-resolution may result in administrative
+                    action affecting driving privileges where authorized.
+                </p>
+
+            </div>
+
+
+            <div class="consequence">
+
+                <div class="consequence-icon">02</div>
+
+                <h3>Further Enforcement</h3>
+
+                <p>
+                    An unresolved citation may proceed to additional
+                    administrative processing or enforcement procedures.
+                </p>
+
+            </div>
+
+
+            <div class="consequence">
+
+                <div class="consequence-icon">03</div>
+
+                <h3>Legal Proceedings</h3>
+
+                <p>
+                    Certain unresolved matters may be referred for further
+                    proceedings where permitted by applicable requirements.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <div class="content-grid">
+
+        <!-- =========================
+             LEFT COLUMN
+        ========================== -->
+
+        <div>
+
+            <!-- REGISTRANT -->
+
+            <section class="info-card">
+
+                <div class="info-header">
+
+                    <h2>Registrant Information</h2>
+
+                </div>
+
+                <div class="info-body">
+
+                    <div class="details-grid">
+
+                        <div>
+                            <div class="detail-label">
+                                Full Name
+                            </div>
+
+                            <div class="detail-value" id="driverName">
+                                —
+                            </div>
+                        </div>
+
+
+                        <div>
+                            <div class="detail-label">
+                                Plate Number
+                            </div>
+
+                            <div class="detail-value" id="plateNumber">
+                                —
+                            </div>
+                        </div>
+
+
+                        <div>
+                            <div class="detail-label">
+                                Citation Number
+                            </div>
+
+                            <div class="detail-value citation-number" id="citationNumber">
+                                —
+                            </div>
+                        </div>
+
+
+                        <div>
+                            <div class="detail-label">
+                                Record Date
+                            </div>
+
+                            <div class="detail-value" id="recordDate">
+                                —
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- VIOLATION -->
+
+            <section class="info-card">
+
+                <div class="info-header">
+
+                    <h2>Violation Information</h2>
+
+                </div>
+
+                <div class="info-body">
+
+                    <div class="violation-banner">
+
+                        <div class="violation-banner-label">
+                            Recorded Violation
+                        </div>
+
+                        <h3 id="violationType">
+                            —
+                        </h3>
+
+                        <p id="violationDescription">
+                            —
+                        </p>
+
+                        <span class="code-pill" id="violationCode">
+                            —
+                        </span>
+
+                    </div>
+
+
+                    <div class="details-grid">
+
+                        <div>
+                            <div class="detail-label">
+                                Recorded Location
+                            </div>
+
+                            <div class="detail-value" id="location">
+                                —
+                            </div>
+                        </div>
+
+
+                        <div>
+                            <div class="detail-label">
+                                Recorded Time
+                            </div>
+
+                            <div class="detail-value" id="violationTime">
+                                —
+                            </div>
+                        </div>
+
+
+                        <div>
+                            <div class="detail-label">
+                                Violation Category
+                            </div>
+
+                            <div class="detail-value" id="category">
+                                —
+                            </div>
+                        </div>
+
+
+                        <div>
+                            <div class="detail-label">
+                                Record Status
+                            </div>
+
+                            <div class="detail-value">
+                                Outstanding
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- NOTICE -->
+
+            <section class="info-card">
+
+                <div class="info-header">
+
+                    <h2>Important Notice</h2>
+
+                </div>
+
+                <div class="info-body">
+
+                    <div class="notice">
+
+                        <strong>Review the citation before proceeding.</strong>
+
+                        Please verify the registrant information, vehicle
+                        information, citation number, violation description,
+                        and amount displayed on this page before selecting
+                        a resolution option.
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+
+        <!-- =========================
+             RIGHT COLUMN
+        ========================== -->
+
+        <aside class="payment-panel">
+
+            <div class="payment-top">
+
+                <small>
+                    EARLY RESOLUTION PERIOD
+                </small>
+
+                <h2>
+                    Reduced Amount Available
+                </h2>
+
+
+                <div class="countdown">
+
+                    <div class="time-box">
+
+                        <span
+                            class="time-number"
+                            id="hours">
+                            23
+                        </span>
+
+                        <span class="time-label">
+                            Hours
+                        </span>
+
+                    </div>
+
+
+                    <div class="time-box">
+
+                        <span
+                            class="time-number"
+                            id="minutes">
+                            59
+                        </span>
+
+                        <span class="time-label">
+                            Minutes
+                        </span>
+
+                    </div>
+
+
+                    <div class="time-box">
+
+                        <span
+                            class="time-number"
+                            id="seconds">
+                            59
+                        </span>
+
+                        <span class="time-label">
+                            Seconds
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="payment-body">
+
+                <div
+                    class="discount-message"
+                    id="discountMessage">
+
+                    A 50% early-resolution reduction is currently reflected
+                    in the amount below.
+
+                </div>
+
+
+                <div class="amount-row">
+
+                    <span>
+                        Original Amount
+                    </span>
+
+                    <strong id="originalAmount">
+                        $0.00
+                    </strong>
+
+                </div>
+
+
+                <div class="amount-row">
+
+                    <span>
+                        Early Resolution Reduction
+                    </span>
+
+                    <strong id="discountAmount">
+                        -$0.00
+                    </strong>
+
+                </div>
+
+
+                <div class="amount-row total">
+
+                    <span>
+                        Amount Due
+                    </span>
+
+                    <strong id="currentAmount">
+                        $0.00
+                    </strong>
+
+                </div>
+
+
+                <button
+                    class="pay-button"
+                    id="continueButton">
+
+                    Continue to Pay
+
+                </button>
+
+
+                <div class="payment-footnote">
+                    Amount shown will be carried to the payment page.
+                </div>
+
+            </div>
+
+        </aside>
+
+    </div>
+
+</main>
+
+
+<footer>
+
+    <div class="footer-inner">
+
+        <span>
+            Traffic Services
+        </span>
+
+        <span>
+            Citation information should be verified with the issuing authority.
+        </span>
+
+    </div>
+
+</footer>
+
+
+<script>
+
+/* =========================================================
+   CITATION / VIOLATION LIBRARY
+   =========================================================
+
+   These are fictional/configurable records for the prototype.
+   Replace the descriptions, codes, locations and fees with
+   client-approved data before production use.
+========================================================= */
+
+const violationTemplates = [
+
+    {
+        type: "Speed Limit Violation",
+        code: "TS-SLV-022",
+        category: "Speed Regulation",
+        description:
+            "The vehicle was recorded exceeding the posted speed limit applicable to the roadway at the recorded time.",
+        location: "Northbridge Avenue",
+        time: "10:42 AM",
+        fee: 156.85
+    },
+
+    {
+        type: "Restricted Parking Violation",
+        code: "TS-RPK-014",
+        category: "Parking Regulation",
+        description:
+            "The vehicle was recorded parked within an area designated as restricted during the applicable restriction period.",
+        location: "Central Market District",
+        time: "2:18 PM",
+        fee: 124.50
+    },
+
+    {
+        type: "Traffic Control Violation",
+        code: "TS-TCV-031",
+        category: "Traffic Control",
+        description:
+            "The vehicle was recorded failing to comply with a posted traffic-control instruction applicable at the recorded location.",
+        location: "Eastgate Boulevard",
+        time: "4:07 PM",
+        fee: 183.20
+    },
+
+    {
+        type: "Parking Authorization Violation",
+        code: "TS-PAV-019",
+        category: "Parking Regulation",
+        description:
+            "The vehicle was recorded within an area requiring parking authorization that was not valid at the recorded time.",
+        location: "Riverside District",
+        time: "11:54 AM",
+        fee: 117.40
+    },
+
+    {
+        type: "Unsafe Lane Movement",
+        code: "TS-ULM-027",
+        category: "Lane Regulation",
+        description:
+            "The vehicle was recorded making a lane movement that did not comply with the applicable roadway restriction.",
+        location: "Grand Central Road",
+        time: "6:25 PM",
+        fee: 194.60
+    },
+
+    {
+        type: "Excess Speed Violation",
+        code: "TS-ESV-041",
+        category: "Speed Regulation",
+        description:
+            "The vehicle was recorded travelling above the applicable posted speed limit at the recorded location.",
+        location: "Westfield Parkway",
+        time: "9:16 AM",
+        fee: 168.25
+    },
+
+    {
+        type: "Restricted Zone Violation",
+        code: "TS-RZV-035",
+        category: "Restricted Area",
+        description:
+            "The vehicle was recorded entering or remaining within a designated restricted roadway area during restricted hours.",
+        location: "Harbor Point Road",
+        time: "3:39 PM",
+        fee: 132.75
+    },
+
+    {
+        type: "Prohibited Parking Violation",
+        code: "TS-PPV-018",
+        category: "Parking Regulation",
+        description:
+            "The vehicle was recorded stopped or parked in an area where parking was prohibited during the recorded period.",
+        location: "Oak Street",
+        time: "8:11 AM",
+        fee: 109.80
+    },
+
+    {
+        type: "Traffic Sign Violation",
+        code: "TS-TSV-008",
+        category: "Traffic Control",
+        description:
+            "The vehicle was recorded failing to comply with a posted traffic sign governing movement at the recorded location.",
+        location: "Lakeside Boulevard",
+        time: "5:03 PM",
+        fee: 142.75
+    },
+
+    {
+        type: "Lane Regulation Violation",
+        code: "TS-LRV-027",
+        category: "Lane Regulation",
+        description:
+            "The vehicle was recorded using a roadway lane in a manner inconsistent with the applicable lane restriction.",
+        location: "Franklin Avenue",
+        time: "7:48 PM",
+        fee: 176.30
+    },
+
+    {
+        type: "Loading Zone Violation",
+        code: "TS-LZV-016",
+        category: "Parking Regulation",
+        description:
+            "The vehicle was recorded stopped within a designated loading zone outside the conditions permitted for that area.",
+        location: "Commerce Street",
+        time: "12:26 PM",
+        fee: 121.65
+    },
+
+    {
+        type: "Restricted Turn Violation",
+        code: "TS-RTV-029",
+        category: "Traffic Control",
+        description:
+            "The vehicle was recorded making a turn that was restricted by the applicable traffic-control arrangement.",
+        location: "Kingston Avenue",
+        time: "1:47 PM",
+        fee: 187.90
+    },
+
+    {
+        type: "Roadway Restriction Violation",
+        code: "TS-RRV-034",
+        category: "Roadway Regulation",
+        description:
+            "The vehicle was recorded operating within a roadway section subject to a restriction at the recorded time.",
+        location: "Southpoint Road",
+        time: "6:02 AM",
+        fee: 153.40
+    },
+
+    {
+        type: "No-Standing Zone Violation",
+        code: "TS-NSZ-012",
+        category: "Parking Regulation",
+        description:
+            "The vehicle was recorded standing within a designated no-standing area during the recorded observation period.",
+        location: "Union Square",
+        time: "10:09 AM",
+        fee: 115.25
+    },
+
+    {
+        type: "Controlled Intersection Violation",
+        code: "TS-CIV-026",
+        category: "Traffic Control",
+        description:
+            "The vehicle was recorded proceeding through a controlled intersection without complying with the applicable traffic instruction.",
+        location: "Maple Avenue & 4th Street",
+        time: "9:31 PM",
+        fee: 199.40
+    }
+
+];
+
+
+/* =========================================================
+   GET STORED USER INFORMATION
+========================================================= */
+
+const driverName =
+    sessionStorage.getItem("driverName") ||
+    "Jordan Mitchell";
+
+const plateNumber =
+    sessionStorage.getItem("plateNumber") ||
+    "QTR-5824";
+
+
+/* =========================================================
+   DETERMINISTIC HASH
+   Same name + plate = same record
+========================================================= */
+
+function hashString(value) {
+
+    let hash = 0;
+
+    for (let i = 0; i < value.length; i++) {
+
+        hash =
+            ((hash << 5) - hash) +
+            value.charCodeAt(i);
+
+        hash |= 0;
+    }
+
+    return Math.abs(hash);
+
+}
+
+
+/* =========================================================
+   SELECT VIOLATION
+========================================================= */
+
+const recordKey =
+    `${driverName.trim().toUpperCase()}|${plateNumber.trim().toUpperCase()}`;
+
+const hash =
+    hashString(recordKey);
+
+const violation =
+    violationTemplates[
+        hash % violationTemplates.length
+    ];
+
+
+/* =========================================================
+   DETERMINISTIC CITATION NUMBER
+========================================================= */
+
+const citationDigits =
+    String(hash % 10000000).padStart(7, "0");
+
+const citationNumber =
+    `TS-${new Date().getFullYear()}-${citationDigits}`;
+
+
+/* =========================================================
+   DATE
+========================================================= */
+
+const recordDate =
+    new Intl.DateTimeFormat("en-US", {
+        month: "long",
+        day: "numeric",
+        year: "numeric"
+    }).format(new Date());
+
+
+/* =========================================================
+   DISPLAY BASIC INFORMATION
+========================================================= */
+
+document.getElementById("driverName").textContent =
+    driverName;
+
+document.getElementById("plateNumber").textContent =
+    plateNumber.toUpperCase();
+
+document.getElementById("citationNumber").textContent =
+    citationNumber;
+
+document.getElementById("recordDate").textContent =
+    recordDate;
+
+
+/* =========================================================
+   DISPLAY VIOLATION
+========================================================= */
+
+document.getElementById("violationType").textContent =
+    violation.type;
+
+document.getElementById("violationDescription").textContent =
+    violation.description;
+
+document.getElementById("violationCode").textContent =
+    `Violation Code: ${violation.code}`;
+
+document.getElementById("location").textContent =
+    violation.location;
+
+document.getElementById("violationTime").textContent =
+    violation.time;
+
+document.getElementById("category").textContent =
+    violation.category;
+
+
+/* =========================================================
+   PAYMENT CALCULATION
+========================================================= */
+
+const originalFee =
+    Number(violation.fee);
+
+const discountedFee =
+    Number((originalFee * 0.50).toFixed(2));
+
+
+/* =========================================================
+   24-HOUR EARLY RESOLUTION TIMER
+========================================================= */
+
+const timerKey =
+    `citationTimer_${recordKey}`;
+
+let timerStart =
+    localStorage.getItem(timerKey);
+
+if (!timerStart) {
+
+    timerStart =
+        Date.now();
+
+    localStorage.setItem(
+        timerKey,
+        timerStart
+    );
+}
+
+const discountDeadline =
+    Number(timerStart) +
+    (24 * 60 * 60 * 1000);
+
+
+/* =========================================================
+   UPDATE PAYMENT DISPLAY
+========================================================= */
+
+function updatePayment() {
+
+    const now =
+        Date.now();
+
+    const remaining =
+        Math.max(
+            0,
+            discountDeadline - now
+        );
+
+
+    if (remaining > 0) {
+
+        const totalSeconds =
+            Math.floor(
+                remaining / 1000
+            );
+
+        const hours =
+            Math.floor(
+                totalSeconds / 3600
+            );
+
+        const minutes =
+            Math.floor(
+                (totalSeconds % 3600) / 60
+            );
+
+        const seconds =
+            totalSeconds % 60;
+
+
+        document.getElementById("hours").textContent =
+            String(hours).padStart(2, "0");
+
+        document.getElementById("minutes").textContent =
+            String(minutes).padStart(2, "0");
+
+        document.getElementById("seconds").textContent =
+            String(seconds).padStart(2, "0");
+
+
+        document.getElementById("originalAmount").textContent =
+            `$${originalFee.toFixed(2)}`;
+
+        document.getElementById("discountAmount").textContent =
+            `-$${(originalFee - discountedFee).toFixed(2)}`;
+
+        document.getElementById("currentAmount").textContent =
+            `$${discountedFee.toFixed(2)}`;
+
+        document.getElementById("discountMessage").textContent =
+            "A 50% early-resolution reduction is currently reflected in the amount below.";
+
+    } else {
+
+        document.getElementById("hours").textContent = "00";
+        document.getElementById("minutes").textContent = "00";
+        document.getElementById("seconds").textContent = "00";
+
+        document.getElementById("originalAmount").textContent =
+            `$${originalFee.toFixed(2)}`;
+
+        document.getElementById("discountAmount").textContent =
+            "$0.00";
+
+        document.getElementById("currentAmount").textContent =
+            `$${originalFee.toFixed(2)}`;
+
+        document.getElementById("discountMessage").textContent =
+            "The early-resolution period has ended. The original amount is now displayed.";
+
+    }
+
+}
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+updatePayment();
+
+setInterval(
+    updatePayment,
+    1000
+);
+
+
+/* =========================================================
+   CONTINUE TO PAYMENT
+========================================================= */
+
+document
+    .getElementById("continueButton")
+    .addEventListener("click", function () {
+
+        const now =
+            Date.now();
+
+        const amountDue =
+            now < discountDeadline
+                ? discountedFee
+                : originalFee;
+
+
+        sessionStorage.setItem(
+            "citationNumber",
+            citationNumber
+        );
+
+        sessionStorage.setItem(
+            "citationViolation",
+            violation.type
+        );
+
+        sessionStorage.setItem(
+            "citationCode",
+            violation.code
+        );
+
+        sessionStorage.setItem(
+            "citationAmount",
+            amountDue.toFixed(2)
+        );
+
+        sessionStorage.setItem(
+            "citationOriginalAmount",
+            originalFee.toFixed(2)
+        );
+
+        sessionStorage.setItem(
+            "citationName",
+            driverName
+        );
+
+        sessionStorage.setItem(
+            "citationPlate",
+            plateNumber
+        );
+
+
+        window.location.href =
+            "payment.html";
+
+    });
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Payment Confirmation | Traffic Services</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      background: #f4f8fc;
+      color: #172033;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: #0757b8;
+      color: white;
+      padding: 18px 24px;
+      box-shadow: 0 2px 10px rgba(0,0,0,.08);
+    }
+
+    .header-inner {
+      max-width: 1050px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .secure {
+      font-size: 13px;
+      opacity: .9;
+    }
+
+    main {
+      width: 100%;
+      max-width: 650px;
+      margin: 55px auto;
+      padding: 0 20px;
+      flex: 1;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid #e3eaf2;
+      border-radius: 18px;
+      padding: 38px;
+      text-align: center;
+      box-shadow: 0 10px 35px rgba(15,45,80,.07);
+    }
+
+    .icon {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 22px;
+      border-radius: 50%;
+      background: #e9f7ef;
+      color: #21874b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 34px;
+      font-weight: 800;
+    }
+
+    h1 {
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+
+    .intro {
+      color: #667085;
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+
+    .details {
+      text-align: left;
+      background: #f7faff;
+      border: 1px solid #dce8f6;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 24px;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 12px 0;
+      border-bottom: 1px solid #e5ebf2;
+    }
+
+    .row:last-child {
+      border-bottom: none;
+    }
+
+    .label {
+      color: #667085;
+      font-size: 14px;
+    }
+
+    .value {
+      font-weight: 700;
+      text-align: right;
+      word-break: break-word;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: #e9f7ef;
+      color: #21874b;
+      border-radius: 30px;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 24px;
+    }
+
+    .note {
+      color: #667085;
+      font-size: 13px;
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
+
+    .button {
+      display: inline-block;
+      background: #0757b8;
+      color: white;
+      text-decoration: none;
+      padding: 14px 24px;
+      border-radius: 9px;
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .button:hover {
+      background: #064b9d;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: #7b8797;
+      font-size: 12px;
+    }
+
+    .loading {
+      color: #667085;
+      font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+      main {
+        margin: 30px auto;
+      }
+
+      .card {
+        padding: 25px 20px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .row {
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      .value {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="brand">Traffic Services</div>
+    <div class="secure">Secure Confirmation</div>
+  </div>
+</header>
+
+<main>
+
+  <div class="card">
+
+    <div class="icon">✓</div>
+
+    <div class="status">
+      ✓ Payment Confirmed
+    </div>
+
+    <h1>Payment Successful</h1>
+
+    <p class="intro">
+      Your payment has been successfully processed.
+      Keep the confirmation information below for your records.
+    </p>
+
+    <div class="details">
+
+      <div class="row">
+        <span class="label">Citation Number</span>
+        <span class="value" id="citationNumber">—</span>
+      </div>
+
+      <div class="row">
+        <span class="label">Payment Reference</span>
+        <span class="value" id="reference">—</span>
+      </div>
+
+      <div class="row">
+        <span class="label">Amount Paid</span>
+        <span class="value" id="amount">—</span>
+      </div>
+
+      <div class="row">
+        <span class="label">Status</span>
+        <span class="value" id="paymentStatus">Verified</span>
+      </div>
+
+    </div>
+
+    <p class="note">
+      A payment confirmation should also be retained in your email
+      if an email receipt was provided during checkout.
+    </p>
+
+    <a href="index.html" class="button">
+      Return to Traffic Services
+    </a>
+
+  </div>
+
+</main>
+
+<footer>
+  Traffic Services · Payment Confirmation
+</footer>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+
+  const citationNumber =
+    params.get("citation");
+
+  const reference =
+    params.get("reference");
+
+  const amount =
+    params.get("amount");
+
+  const status =
+    params.get("status");
+
+  document.getElementById("citationNumber").textContent =
+    citationNumber || "—";
+
+  document.getElementById("reference").textContent =
+    reference || "—";
+
+  if (amount) {
+    const numericAmount = Number(amount);
+
+    document.getElementById("amount").textContent =
+      Number.isNaN(numericAmount)
+        ? amount
+        : "$" + numericAmount.toFixed(2);
+  }
+
+  document.getElementById("paymentStatus").textContent =
+    status === "successful"
+      ? "Verified"
+      : "Confirmed";
+</script>
+
+</body>
+</html>
